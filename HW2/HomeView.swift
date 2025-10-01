@@ -1,10 +1,3 @@
-//
-//  ContentView.swift
-//  HW2
-//
-//  Created by user19 on 2025/10/1.
-//
-
 import SwiftUI
 struct HomeView: View {
     var Videos: View = [
