@@ -6,9 +6,12 @@
 //
 
 import SwiftUI
-
 struct HomeView: View {
-    
+    var Videos: View = [
+        VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Video1"), duration: "16:23", viewCount: "179.2萬", commentCount: "1萬"),
+        VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266"),
+        VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156")
+    ]
     var body: some View {
         VStack {
             HStack {
@@ -48,21 +51,16 @@ struct HomeView: View {
             }
             .font(Font.system(size: 20))
             ScrollView {
-                HStack(spacing: 10) {
-                    VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Video1"), duration: "16:23", viewCount: "179.2萬", commentCount: "1萬")
-                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
+                ForEach(stride(from: 0, to: Videos.count, by: 2), id: \.self) { index in
+                    HStack(spacing: 10) {
+                        Videos[index]
+                        if index + 1 < Videos.count {
+                            Videos[index + 1]
+                        }
+                    }
+                    .padding(.vertical, 0.5)
                 }
-                .padding(.vertical, 0.5)
-                HStack(spacing: 10) {
-                    VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156")
-                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
-                }
-                .padding(.vertical, 0.5)
-                HStack(spacing: 10) {
-                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
-                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
-                }
-                .padding(.vertical, 0.5)
+
             }
             .padding(10)
             .background(Color(.secondarySystemBackground))
