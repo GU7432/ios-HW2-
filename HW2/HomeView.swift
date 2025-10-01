@@ -49,11 +49,11 @@ struct HomeView: View {
             .font(Font.system(size: 20))
             ScrollView {
                 HStack{
-                    VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Test1"))
-                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Test2"))
+                    VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Video1"), duration: "16:23", viewCount: "179.2萬", commentCount: "1萬")
+                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
                 }
                 HStack{
-                    VideoView(VideoTitle: "", Publisher: "123", VideoImage: Image("meow1"))
+                    VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156")
                     VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("meow1"))
                 }
                 HStack{
@@ -144,10 +144,17 @@ struct VideoView: View {
     var VideoTitle: String = ""
     var Publisher: String = ""
     var VideoImage: Image
-    init(VideoTitle: String, Publisher: String, VideoImage: Image) {
+    var duration: String = ""
+    var viewCount: String = ""
+    var commentCount: String = ""
+    
+    init(VideoTitle: String, Publisher: String, VideoImage: Image, duration: String = "0:00", viewCount: String = "0", commentCount: String = "0") {
         self.VideoTitle = VideoTitle
         self.Publisher = Publisher
         self.VideoImage = VideoImage
+        self.duration = duration
+        self.viewCount = viewCount
+        self.commentCount = commentCount
     }
     
     @Environment(\.colorScheme) private var colorScheme: ColorScheme
@@ -179,24 +186,31 @@ struct VideoView: View {
                                     .stroke(style: StrokeStyle(lineWidth: 1.5))
                                     .foregroundStyle(.white)
                             }
-                        Text("73.1萬")
+                        Text(viewCount)
                             .font(Font.system(size: 14))
                             .foregroundStyle(.white)
                         Image(systemName: "list.dash.header.rectangle")
                             .foregroundStyle(.white)
-                        Text("196")
+                        Text(commentCount)
                             .font(Font.system(size: 14))
                             .foregroundStyle(.white)
                         Spacer()
-                        Text("1:12")
+                        Text(duration)
                             .font(Font.system(size: 14))
                             .foregroundStyle(.white)
                     }
                     .padding(.horizontal, 10)
+                    .padding(.vertical, 3)
                 }
             }
                 
-            Text(VideoTitle)
+            Text(truncateTitle(VideoTitle, maxLength: 30))
+                .lineLimit(2, reservesSpace: true)
+                .truncationMode(.tail)
+                .multilineTextAlignment(.leading)
+                .frame(maxWidth: .infinity, alignment: .leading)
+                .padding(.horizontal, 8)
+            
             HStack {
                 Text("UP")
                     .foregroundStyle(.secondary)
@@ -219,6 +233,14 @@ struct VideoView: View {
         .background(backgroundColor)
         .cornerRadius(10)
         
+    }
+    
+    private func truncateTitle(_ title: String, maxLength: Int) -> String {
+        if title.count > maxLength {
+            let index = title.index(title.startIndex, offsetBy: maxLength)
+            return String(title[..<index]) + "..."
+        }
+        return title
     }
 }
 
