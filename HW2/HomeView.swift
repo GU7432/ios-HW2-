@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct ContentView: View {
+struct HomeView: View {
     
     var body: some View {
         VStack {
@@ -24,18 +24,36 @@ struct ContentView: View {
             }
             HStack {
                 Text("直播")
+                    .foregroundColor(.gray)
+                    .padding(10)
                 Text("推薦")
+                    .foregroundColor(.pink)
+                    .padding(10)
+                    .bold()
+                    .overlay {
+                        RoundedRectangle(cornerRadius: 100)
+                            .frame(width: 25, height: 3)
+                            .foregroundColor(.pink)
+                            .offset(y: 15)
+                    }
                 Text("熱門")
+                    .foregroundColor(.gray)
+                    .padding(10)
                 Text("動畫")
+                    .foregroundColor(.gray)
+                    .padding(10)
                 Text("影視")
+                    .foregroundColor(.gray)
+                    .padding(10)
             }
+            .font(Font.system(size: 20))
             ScrollView {
                 HStack{
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("Test1"))
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("Test1"))
+                    VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Test1"))
+                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Test2"))
                 }
                 HStack{
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("meow1"))
+                    VideoView(VideoTitle: "", Publisher: "123", VideoImage: Image("meow1"))
                     VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("meow1"))
                 }
                 HStack{
@@ -48,11 +66,54 @@ struct ContentView: View {
             .padding(10)
             .background(Color(.secondarySystemBackground))
             HStack {
-                Text("首頁")
-                Text("關注")
-                Text("+")
-                Text("訊息")
-                Text("我的")
+                Spacer()
+                VStack {
+                    Image(systemName: "house")
+                        .font(Font.system(size: 25))
+                    Text("首頁")
+                        .font(Font.system(size: 14))
+                }
+                .foregroundColor(.pink)
+                Spacer()
+                VStack {
+                    Image(systemName: "fan")
+                        .font(Font.system(size: 25))
+                    Text("關注")
+                        .font(Font.system(size: 14))
+                }
+                .foregroundColor(.gray)
+                Spacer()
+                RoundedRectangle(cornerRadius: 15)
+                    .fill(
+                        LinearGradient (
+                            gradient: Gradient(colors: [Color.pink, Color.pink.opacity(0.7)]),
+                            startPoint: .topLeading,
+                            endPoint: .bottomTrailing
+                        )
+                    )
+                    .frame(width: 40, height: 40)
+                    .overlay(
+                        Image(systemName: "plus")
+                            .font(.system(size: 20, weight: .bold))
+                            .foregroundStyle(.white)
+                    )
+                Spacer()
+                VStack {
+                    Image(systemName: "message")
+                        .font(Font.system(size: 25))
+                    Text("訊息")
+                        .font(Font.system(size: 14))
+                }
+                .foregroundColor(.gray)
+                Spacer()
+                VStack {
+                    Image(systemName: "tv")
+                        .font(Font.system(size: 25))
+                    Text("我的")
+                        .font(Font.system(size: 14))
+                }
+                .foregroundColor(.gray)
+                Spacer()
             }
             .padding(10)
         }
@@ -164,6 +225,5 @@ struct VideoView: View {
 
 
 #Preview {
-
-    ContentView()
+    HomeView()
 }
