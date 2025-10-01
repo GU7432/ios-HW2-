@@ -48,20 +48,21 @@ struct HomeView: View {
             }
             .font(Font.system(size: 20))
             ScrollView {
-                HStack{
+                HStack(spacing: 10) {
                     VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Video1"), duration: "16:23", viewCount: "179.2萬", commentCount: "1萬")
                     VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
                 }
-                HStack{
+                .padding(.vertical, 0.5)
+                HStack(spacing: 10) {
                     VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156")
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("meow1"))
+                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
                 }
-                HStack{
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("Test"))
-                    VideoView(VideoTitle: "123", Publisher: "123", VideoImage: Image("Test"))
+                .padding(.vertical, 0.5)
+                HStack(spacing: 10) {
+                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
+                    VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266")
                 }
-
-                
+                .padding(.vertical, 0.5)
             }
             .padding(10)
             .background(Color(.secondarySystemBackground))
@@ -115,7 +116,6 @@ struct HomeView: View {
                 .foregroundColor(.gray)
                 Spacer()
             }
-            .padding(10)
         }
     }
 }
@@ -127,7 +127,7 @@ struct SearchView: View {
             Image(systemName: "magnifyingglass")
                 .foregroundColor(.gray)
 
-            TextField("搜尋", text: $search)
+            TextField("影视飓风", text: $search)
                 .foregroundColor(.primary)
         }
         .padding(.horizontal)
@@ -167,13 +167,22 @@ struct VideoView: View {
     }
     var body: some View {
         VStack {
-            Spacer()
             ZStack {
                 VideoImage
                     .resizable()
                     .scaledToFill()
-                    .frame(width: 200, height: 120)
+                    .frame(maxWidth: .infinity, maxHeight: 120)
                     .clipped()
+                    .clipShape(
+                        UnevenRoundedRectangle(
+                            cornerRadii: .init(
+                                topLeading: 10,
+                                bottomLeading: 0,
+                                bottomTrailing: 0,
+                                topTrailing: 10
+                            )
+                        )
+                    )
                 VStack {
                     Spacer()
                     HStack {
@@ -227,9 +236,9 @@ struct VideoView: View {
                     .foregroundColor(.secondary)
                     .rotationEffect(.degrees(90))
             }
-            .padding()
+            .padding(.vertical, 8)
+            .padding(.horizontal, 10)
         }
-        .padding(1)
         .background(backgroundColor)
         .cornerRadius(10)
         
