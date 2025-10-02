@@ -1,9 +1,11 @@
 import SwiftUI
 struct HomeView: View {
-    var Videos: View = [
+    var Videos: [VideoView] = [
         VideoView(VideoTitle: "能点火？扛子弹？30年前的手机能干嘛？", Publisher: "影视飓风", VideoImage: Image("Video1"), duration: "16:23", viewCount: "179.2萬", commentCount: "1萬"),
         VideoView(VideoTitle: "IRIS OUT - 米津玄師 / 重音テトSV【SynthV cover】 [yasai31]", Publisher: "yasai31", VideoImage: Image("Video2"), duration: "02:29", viewCount: "17.6萬", commentCount: "266"),
-        VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156")
+        VideoView(VideoTitle: "史上最快大量数据传输方式，居然是卡车拉硬盘！", Publisher: "UGREEN绿联", VideoImage: Image("Video3"), duration: "04:09", viewCount: "3.7萬", commentCount: "156"),
+        VideoView(VideoTitle: "什么叫你乐队也有 人格分裂 落魄大小姐 前雇佣兵 和抢自己姐姐名字的？【崩坏3爱愿嘉年华】", Publisher: "粥粥的奇妙冒险", VideoImage: Image("Video4"), duration: "05:01", viewCount: "50.6萬", commentCount: "960"),
+        VideoView(VideoTitle: "COS这么多角色，这个游戏一定已经上线很久了吧？", Publisher: "六二二同学w", VideoImage: Image("Video5"), duration: "03:53", viewCount: "48.6萬", commentCount: "913"),
     ]
     var body: some View {
         VStack {
@@ -44,7 +46,7 @@ struct HomeView: View {
             }
             .font(Font.system(size: 20))
             ScrollView {
-                ForEach(stride(from: 0, to: Videos.count, by: 2), id: \.self) { index in
+                ForEach(Array(stride(from: 0, to: Videos.count, by: 2)), id: \.self) { index in
                     HStack(spacing: 10) {
                         Videos[index]
                         if index + 1 < Videos.count {
@@ -179,24 +181,25 @@ struct VideoView: View {
                     HStack {
                         Image(systemName: "play.fill")
                             .foregroundStyle(.white)
-                            .font(Font.system(size: 8))
+                            .font(Font.system(size: 5))
                             .padding(3)
                             .overlay {
-                                RoundedRectangle(cornerRadius: 5)
+                                RoundedRectangle(cornerRadius: 3)
                                     .stroke(style: StrokeStyle(lineWidth: 1.5))
                                     .foregroundStyle(.white)
                             }
                         Text(viewCount)
-                            .font(Font.system(size: 14))
+                            .font(Font.system(size: 11))
                             .foregroundStyle(.white)
                         Image(systemName: "list.dash.header.rectangle")
+                            .font(Font.system(size: 11))
                             .foregroundStyle(.white)
                         Text(commentCount)
-                            .font(Font.system(size: 14))
+                            .font(Font.system(size: 11))
                             .foregroundStyle(.white)
                         Spacer()
                         Text(duration)
-                            .font(Font.system(size: 14))
+                            .font(Font.system(size: 11))
                             .foregroundStyle(.white)
                     }
                     .padding(.horizontal, 10)
@@ -214,13 +217,14 @@ struct VideoView: View {
             HStack {
                 Text("UP")
                     .foregroundStyle(.secondary)
-                    .font(.system(size: 10))
+                    .font(.system(size: 8))
                     .padding(2)
                     .overlay(
                         RoundedRectangle(cornerRadius: 5)
-                            .stroke(Color.gray, lineWidth: 1.5)
+                            .stroke(Color.gray, lineWidth: 1)
                     )
                 Text(Publisher)
+                    .font(Font.system(size: 13))
                     .foregroundColor(.secondary)
                 Spacer()
                 Image(systemName: "ellipsis")
